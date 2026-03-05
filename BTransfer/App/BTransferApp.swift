@@ -10,12 +10,15 @@ import CoreData
 
 @main
 struct BTransferApp: App {
-    let persistenceController = PersistenceController.shared
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
+    private var provider: AppProvider {
+        appDelegate.provider
+    }
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            CoordinatorView(provider: provider)
         }
     }
 }
