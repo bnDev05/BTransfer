@@ -1,0 +1,10 @@
+/* 
+  BLocalization.strings
+  BTransfer
+
+  Created by Behruz Norov on 05/03/26.
+  
+*/
+
+"SplashTexts.text.title" = "Payment Finder";
+"SplashTexts.text.subtitle" = "Transfer money to the users nearby easily";
