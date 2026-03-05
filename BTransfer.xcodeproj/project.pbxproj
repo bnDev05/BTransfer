@@ -6,12 +6,16 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		D129FA372F596979003BE097 /* BluetoothInfoShare in Frameworks */ = {isa = PBXBuildFile; productRef = D129FA362F596979003BE097 /* BluetoothInfoShare */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		D1AF94102F5848F20064D122 /* BTransfer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BTransfer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		D129F9782F596567003BE097 /* Exceptions for "BTransfer" folder in "BTransfer" target */ = {
+		D129FA512F596F14003BE097 /* Exceptions for "BTransfer" folder in "BTransfer" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -24,7 +28,7 @@
 		D1AF94122F5848F20064D122 /* BTransfer */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				D129F9782F596567003BE097 /* Exceptions for "BTransfer" folder in "BTransfer" target */,
+				D129FA512F596F14003BE097 /* Exceptions for "BTransfer" folder in "BTransfer" target */,
 			);
 			path = BTransfer;
 			sourceTree = "<group>";
@@ -36,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D129FA372F596979003BE097 /* BluetoothInfoShare in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,7 @@
 			);
 			name = BTransfer;
 			packageProductDependencies = (
+				D129FA362F596979003BE097 /* BluetoothInfoShare */,
 			);
 			productName = BTransfer;
 			productReference = D1AF94102F5848F20064D122 /* BTransfer.app */;
@@ -107,6 +113,9 @@
 			);
 			mainGroup = D1AF94072F5848F20064D122;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				D129FA352F596979003BE097 /* XCRemoteSwiftPackageReference "BluetoothInfoShare" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D1AF94112F5848F20064D122 /* Products */;
 			projectDirPath = "";
@@ -270,11 +279,13 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BTransfer/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "We need your bluetooth access to detect devices nearby.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -283,6 +294,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.development.BTransfer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -303,11 +318,13 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BTransfer/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "We need your bluetooth access to detect devices nearby.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -316,6 +333,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.development.BTransfer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -347,6 +368,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D129FA352F596979003BE097 /* XCRemoteSwiftPackageReference "BluetoothInfoShare" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/bnDev05/BluetoothInfoShare.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.8;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D129FA362F596979003BE097 /* BluetoothInfoShare */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D129FA352F596979003BE097 /* XCRemoteSwiftPackageReference "BluetoothInfoShare" */;
+			productName = BluetoothInfoShare;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D1AF94082F5848F20064D122 /* Project object */;
 }

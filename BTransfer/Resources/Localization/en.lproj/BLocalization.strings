@@ -6,5 +6,19 @@
   
 */
 
+// MARK: Universal
+"Universal.text.retry" = "Retry";
+"Universal.text.cancel" = "Cancel";
+"Universal.text.you" = "You";
+
+// MARK: SplashTexts
 "SplashTexts.text.title" = "Payment Finder";
 "SplashTexts.text.subtitle" = "Transfer money to the users nearby easily";
+
+// MARK: BFinderTexts
+"BFinderTexts.text.title" = "Transactions";
+"BFinderTexts.text.noFoundAlertTitle" = "No Devices Found";
+"BFinderTexts.text.noFoundAlertMessage" = "No nearby devices were found. Make sure the other device has the app open.";
+"BFinderTexts.text.nearbyDevices" = "Nearby Users";
+"BFinderTexts.text.lookingForNearbyDevices" = "Looking for nearby devices…";
+"BFinderTexts.text.info" = "Make sure the other person has the app open and Bluetooth enabled. Devices appear automatically.";

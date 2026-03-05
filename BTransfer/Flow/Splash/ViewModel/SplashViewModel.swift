@@ -10,12 +10,14 @@ import Combine
 
 final class SplashViewModel: ObservableObject {
     let provider: AppProvider
+    @Binding var showMain: Bool
     
     @Published var animationState: AnimationState = .idle
     @Published var pulseAnimation = false
     @Published var rotationAnimation = false
     
-    init(provider: AppProvider) {
+    init(provider: AppProvider, showMain: Binding<Bool>) {
+        _showMain = showMain
         self.provider = provider
     }
     
@@ -29,7 +31,7 @@ final class SplashViewModel: ObservableObject {
     }
     
     private func navigateToFinder() {
-        provider.coordinator.push(.finder)
+        showMain = true
     }
     
     func turnOnAnimations() {

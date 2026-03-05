@@ -9,7 +9,10 @@ import SwiftUI
 
 struct CoordinatorView: View {
     @StateObject private var coordinator: AppCoordinator
+    @State private var showMain: Bool = false
     private let provider: AppProvider
+    var onCardSelected: ((Int) -> Void)?
+
     init(provider: AppProvider) {
         self.provider = provider
         self._coordinator = StateObject(
@@ -19,11 +22,14 @@ struct CoordinatorView: View {
     var body: some View {
         ZStack {
             NavigationStack(path: $coordinator.path) {
-                SplashView(provider: provider)
-                    .navigationDestination(for: AppRoute.self) { route in
-                        view(for: route)
-                            .navigationBarBackButtonHidden()
-                    }
+                if showMain {
+                    BFinderView(provider: provider)
+                        .navigationDestination(for: AppRoute.self) { route in
+                            view(for: route)
+                        }
+                } else {
+                    SplashView(provider: provider, showMain: $showMain)
+                }
             }
             .sheet(item: $coordinator.sheet) { route in
                 view(for: route)
@@ -50,10 +56,12 @@ struct CoordinatorView: View {
         switch route {
         case .finder:
             BFinderView(provider: provider)
-        case .transfer:
-            EmptyView()
-        case .success:
-            EmptyView()
+        case .transfer(let info):
+            TransferView(provider: provider, info: info)
+        case .cards(let vm):
+            CardPickerSheet(vm: vm)
+        case .success(let info):
+            SuccessView(receiver: info, provider: provider)
         }
     }
 }

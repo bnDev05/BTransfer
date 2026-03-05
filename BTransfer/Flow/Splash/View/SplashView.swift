@@ -10,7 +10,6 @@ import CoreData
 
 struct SplashView: View {
     private enum Consts {
-        // Animation durations
         static let animationDuration: Double = 1.0
         static let circleStrokeWidth: CGFloat = 2
         static let circleBaseSize: CGFloat = 120
@@ -38,8 +37,8 @@ struct SplashView: View {
     @State private var textOpacity: Double = 0
     @State private var waveOffset: CGFloat = 0
     
-    init(provider: AppProvider) {
-        _vm = StateObject(wrappedValue: SplashViewModel(provider: provider))
+    init(provider: AppProvider, showMain: Binding<Bool>) {
+        _vm = StateObject(wrappedValue: SplashViewModel(provider: provider, showMain: showMain))
     }
     
     var body: some View {
@@ -123,5 +122,5 @@ struct SplashView: View {
 }
 
 #Preview {
-    SplashView(provider: AppProvider())
+    SplashView(provider: AppProvider(), showMain: .constant(false))
 }

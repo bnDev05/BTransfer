@@ -9,16 +9,19 @@ import SwiftUI
 
 enum AppRoute: Hashable, Identifiable {
     case finder
-    case transfer
-    case success
+    case transfer(userData: UserInfo)
+    case cards(vm: BFinderViewModel)
+    case success(userData: UserInfo)
     
     var id: String {
         switch self {
         case .finder:
             return "finder"
-        case .transfer:
+        case .transfer(_):
             return "transfer"
-        case .success:
+        case .cards(_):
+            return "cards"
+        case .success(_):
             return "success"
         }
     }

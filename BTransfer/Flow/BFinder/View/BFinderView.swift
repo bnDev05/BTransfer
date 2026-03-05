@@ -6,18 +6,139 @@
 //
 
 import SwiftUI
+import CoreBluetooth
+import BluetoothInfoShare
 
 struct BFinderView: View {
     @StateObject private var vm: BFinderViewModel
-    
     init(provider: AppProvider) {
         _vm = StateObject(wrappedValue: BFinderViewModel(provider: provider))
     }
-    
+
     var body: some View {
-        ZStack {
-            
+        NavigationStack {
+            Group {
+                if !vm.isBluetoothReady {
+                    BluetoothPermissionView(state: vm.bluetoothState)
+                } else {
+                    mainContent
+                }
+            }
+            .navigationTitle(Loc.BFinderTexts.title)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar { toolbarContent }
         }
+        .alert(Loc.BFinderTexts.noFoundAlertTitle, isPresented: $vm.showNoDevicesAlert) {
+            Button(Loc.Universal.retry) { vm.retryScanning() }
+            Button(Loc.Universal.cancel, role: .cancel) {}
+        } message: {
+            Text(Loc.BFinderTexts.noFoundAlertMessage)
+        }
+    }
+
+    @ToolbarContentBuilder
+    private var toolbarContent: some ToolbarContent {
+        ToolbarItem(placement: .navigationBarTrailing) {
+            switch vm.scanPhase {
+            case .scanning:
+                ProgressView()
+                    .tint(.primary)
+            case .noResults, .finished:
+                Button {
+                    vm.retryScanning()
+                } label: {
+                    Image(systemName: "arrow.clockwise")
+                }
+            }
+        }
+    }
+
+    private var mainContent: some View {
+        ScrollView {
+            VStack(spacing: 0) {
+                senderSection
+                Divider().padding(.vertical, 8)
+                devicesSection
+                scannerFooter
+            }
+            .padding(.horizontal, 16)
+            .padding(.top, 8)
+        }
+    }
+
+    private var senderSection: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(Loc.Universal.you)
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+                .padding(.leading, 4)
+
+            Button {
+                vm.showCardPicker()
+            } label: {
+                SenderCell(info: vm.senderInfo)
+            }
+            .buttonStyle(.plain)
+        }
+    }
+
+    private var devicesSection: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(Loc.BFinderTexts.nearbyDevices)
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+                .padding(.leading, 4)
+
+            if vm.discoveredDevices.isEmpty {
+                discoveringPlaceholder
+            } else {
+                VStack(spacing: 0) {
+                    ForEach(vm.discoveredDevices) { cell in
+                        Button {
+                            vm.goToTransfer(cell: cell)
+                        } label: {
+                            DiscoveredDeviceCell(cell: cell)
+                        }
+                        .buttonStyle(.plain)
+//                        .disabled(!vm.navigationLocked)
+
+                        if cell.id != vm.discoveredDevices.last?.id {
+                            Divider().padding(.leading, 60)
+                        }
+                    }
+                }
+                .background(Color(.secondarySystemGroupedBackground))
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+            }
+        }
+    }
+
+    private var discoveringPlaceholder: some View {
+        HStack(spacing: 12) {
+            ProgressView()
+                .tint(.secondary)
+            Text(Loc.BFinderTexts.lookingForNearbyDevices)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(16)
+        .background(Color(.secondarySystemGroupedBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+    }
+
+    private var scannerFooter: some View {
+        VStack(spacing: 12) {
+            ScanningIndicator(phase: vm.scanPhase)
+
+            Text(Loc.BFinderTexts.info)
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 8)
+        }
+        .padding(.top, 24)
+        .padding(.bottom, 16)
     }
 }
 

@@ -25,3 +25,6 @@ extension String {
         return NSLocalizedString(self, tableName: "BLocalization", bundle: bundle, comment: "")
     }
 }
+extension String {
+    static let cardIndex = "cardIndex"
+}

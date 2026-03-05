@@ -1,0 +1,15 @@
+{
+  "originHash" : "6d6563cad7f83362649f510f9a40522817700f5c194dae705767990e0f12f0a7",
+  "pins" : [
+    {
+      "identity" : "bluetoothinfoshare",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/bnDev05/BluetoothInfoShare.git",
+      "state" : {
+        "revision" : "3e3814b23ecab93b131a8c569a77dd4ff436e4b7",
+        "version" : "1.0.8"
+      }
+    }
+  ],
+  "version" : 3
+}

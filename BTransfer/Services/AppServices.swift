@@ -8,7 +8,8 @@
 import SwiftUI
 
 final class AppServices {
-    init() {
-        
-    }
+    lazy var bluetoothService: BluetoothService = {
+        return BluetoothService()
+    }()
+    init() {}
 }
