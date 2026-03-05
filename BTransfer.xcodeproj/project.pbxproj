@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D129FA372F596979003BE097 /* BluetoothInfoShare in Frameworks */ = {isa = PBXBuildFile; productRef = D129FA362F596979003BE097 /* BluetoothInfoShare */; };
+		D129FB2E2F599B82003BE097 /* BluetoothInfoShare in Frameworks */ = {isa = PBXBuildFile; productRef = D129FB2D2F599B82003BE097 /* BluetoothInfoShare */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,7 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D129FA372F596979003BE097 /* BluetoothInfoShare in Frameworks */,
+				D129FB2E2F599B82003BE097 /* BluetoothInfoShare in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,7 +83,7 @@
 			);
 			name = BTransfer;
 			packageProductDependencies = (
-				D129FA362F596979003BE097 /* BluetoothInfoShare */,
+				D129FB2D2F599B82003BE097 /* BluetoothInfoShare */,
 			);
 			productName = BTransfer;
 			productReference = D1AF94102F5848F20064D122 /* BTransfer.app */;
@@ -114,7 +114,7 @@
 			mainGroup = D1AF94072F5848F20064D122;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				D129FA352F596979003BE097 /* XCRemoteSwiftPackageReference "BluetoothInfoShare" */,
+				D129FB2C2F599B82003BE097 /* XCRemoteSwiftPackageReference "BluetoothInfoShare" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D1AF94112F5848F20064D122 /* Products */;
@@ -370,20 +370,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D129FA352F596979003BE097 /* XCRemoteSwiftPackageReference "BluetoothInfoShare" */ = {
+		D129FB2C2F599B82003BE097 /* XCRemoteSwiftPackageReference "BluetoothInfoShare" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/bnDev05/BluetoothInfoShare.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.8;
+				minimumVersion = 1.0.9;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D129FA362F596979003BE097 /* BluetoothInfoShare */ = {
+		D129FB2D2F599B82003BE097 /* BluetoothInfoShare */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D129FA352F596979003BE097 /* XCRemoteSwiftPackageReference "BluetoothInfoShare" */;
+			package = D129FB2C2F599B82003BE097 /* XCRemoteSwiftPackageReference "BluetoothInfoShare" */;
 			productName = BluetoothInfoShare;
 		};
 /* End XCSwiftPackageProductDependency section */

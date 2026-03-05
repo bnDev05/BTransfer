@@ -10,6 +10,7 @@ import BluetoothInfoShare
 
 struct DiscoveredDeviceCell: View {
     let cell: CellInfoModel
+    var isLoading: Bool = false
 
     var body: some View {
         ZStack {
@@ -34,9 +35,15 @@ struct DiscoveredDeviceCell: View {
                 
                 Spacer()
                 
-                Image(systemName: "chevron.right")
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(.tertiary)
+                if isLoading {
+                    ProgressView()
+                        .tint(.secondary)
+                        .scaleEffect(0.7)
+                } else {
+                    Image(systemName: "chevron.right")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(.tertiary)
+                }
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 10)

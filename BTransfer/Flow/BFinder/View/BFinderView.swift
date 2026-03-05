@@ -97,10 +97,12 @@ struct BFinderView: View {
                         Button {
                             vm.goToTransfer(cell: cell)
                         } label: {
-                            DiscoveredDeviceCell(cell: cell)
+                            DiscoveredDeviceCell(
+                                cell: cell,
+                                isLoading: vm.loadingPeripheralID == cell.peripheral.identifier
+                            )
                         }
                         .buttonStyle(.plain)
-//                        .disabled(!vm.navigationLocked)
 
                         if cell.id != vm.discoveredDevices.last?.id {
                             Divider().padding(.leading, 60)

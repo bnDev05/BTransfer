@@ -14,8 +14,8 @@ import BluetoothInfoShare
 final class BluetoothService {
     @AppStorage(.cardIndex) var selectedCardIndex = 0
     let bluetoothStatePublisher: AnyPublisher<CBManagerState, Never>
-    let discoveredDevicesPublisher: AnyPublisher<[CellInfoModel], Never>
 
+    let discoveredDevicesPublisher: AnyPublisher<[CellInfoModel], Never>
     private let manager = BluetoothManager.shared
     private let peripheralHandler: PeripheralManagerDelegateHandler
 
@@ -49,10 +49,10 @@ final class BluetoothService {
     private func observeDiscovery() {
         manager.discoveryPublisher
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] peripheral in
+            .sink { [weak self] peripheral, advertisementData in
                 guard let self else { return }
                 guard
-                    let localName = peripheral.name,
+                    let localName = advertisementData[CBAdvertisementDataLocalNameKey] as? String,
                     let cell = CellInfoModel.makeInfo(
                         advertisementLocalName: localName,
                         peripheral: peripheral,
@@ -108,7 +108,16 @@ final class BluetoothService {
     }
 
     func connect(to cell: CellInfoModel) async throws -> CBPeripheral {
-        try await manager.connect(cell.peripheral)
+        try await Task(priority: .userInitiated) {
+            try await manager.connect(cell.peripheral)
+        }.value
+    }
+
+    @discardableResult
+    func disconnect(from cell: CellInfoModel) async -> CBPeripheral {
+        await Task(priority: .userInitiated) {
+            await manager.disconnect(cell.peripheral)
+        }.value
     }
 
     func updateAdvertisedCard(lastFour: String) {

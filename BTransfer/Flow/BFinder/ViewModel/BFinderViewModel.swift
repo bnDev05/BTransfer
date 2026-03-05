@@ -17,7 +17,10 @@ final class BFinderViewModel: ObservableObject, Hashable {
     @Published private(set) var discoveredDevices: [CellInfoModel] = []
     @Published private(set) var scanPhase: ScanPhase = .scanning(secondsLeft: 60)
     @Published var showNoDevicesAlert: Bool = false
-    private var navigationLocked = false
+
+    @Published private(set) var loadingPeripheralID: UUID? = nil
+
+    private var navigationLocked: Bool { loadingPeripheralID != nil }
 
     var isBluetoothReady: Bool { bluetoothState == .poweredOn }
 
@@ -134,16 +137,15 @@ final class BFinderViewModel: ObservableObject, Hashable {
     
     func goToTransfer(cell: CellInfoModel) {
         guard !navigationLocked else { return }
-        navigationLocked = true
+        loadingPeripheralID = cell.peripheral.identifier
 
         Task(priority: .userInitiated) { [weak self] in
             guard let self else { return }
-            // Connect runs off the main thread — no UI blocking
             _ = try? await bluetooth.connect(to: cell)
             await MainActor.run {
                 self.coordinator.push(.transfer(userData: cell.toHashable()))
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.navigationLocked = false
+                    self.loadingPeripheralID = nil
                 }
             }
         }

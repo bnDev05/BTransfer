@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/bnDev05/BluetoothInfoShare.git",
       "state" : {
-        "revision" : "3e3814b23ecab93b131a8c569a77dd4ff436e4b7",
-        "version" : "1.0.8"
+        "revision" : "d89f759bddb6d544f956eea2aa1a99e716faf32e",
+        "version" : "1.0.9"
       }
     }
   ],
