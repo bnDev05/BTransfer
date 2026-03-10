@@ -138,16 +138,10 @@ final class BFinderViewModel: ObservableObject, Hashable {
     func goToTransfer(cell: CellInfoModel) {
         guard !navigationLocked else { return }
         loadingPeripheralID = cell.peripheral.identifier
+        coordinator.push(.transfer(userData: cell.toHashable()))
 
-        Task(priority: .userInitiated) { [weak self] in
-            guard let self else { return }
-            _ = try? await bluetooth.connect(to: cell)
-            await MainActor.run {
-                self.coordinator.push(.transfer(userData: cell.toHashable()))
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.loadingPeripheralID = nil
-                }
-            }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            self?.loadingPeripheralID = nil
         }
     }
 }

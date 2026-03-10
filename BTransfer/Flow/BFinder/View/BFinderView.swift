@@ -41,8 +41,7 @@ struct BFinderView: View {
         ToolbarItem(placement: .navigationBarTrailing) {
             switch vm.scanPhase {
             case .scanning:
-                ProgressView()
-                    .tint(.primary)
+                EmptyView()
             case .noResults, .finished:
                 Button {
                     vm.retryScanning()
@@ -90,7 +89,9 @@ struct BFinderView: View {
                 .padding(.leading, 4)
 
             if vm.discoveredDevices.isEmpty {
-                discoveringPlaceholder
+                if vm.scanPhase != .noResults {
+                    discoveringPlaceholder
+                }
             } else {
                 VStack(spacing: 0) {
                     ForEach(vm.discoveredDevices) { cell in

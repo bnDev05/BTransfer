@@ -3,24 +3,27 @@
 //  BTransfer
 //
 //  Wraps BluetoothInfoShare package.
-//  Owns scanning, advertising, state observation, and device discovery.
 //
 
 import SwiftUI
 import Combine
 import CoreBluetooth
 import BluetoothInfoShare
+import UIKit
 
 final class BluetoothService {
     @AppStorage(.cardIndex) var selectedCardIndex = 0
     let bluetoothStatePublisher: AnyPublisher<CBManagerState, Never>
-
     let discoveredDevicesPublisher: AnyPublisher<[CellInfoModel], Never>
+
     private let manager = BluetoothManager.shared
     private let peripheralHandler: PeripheralManagerDelegateHandler
-
     private let devicesSubject = CurrentValueSubject<[CellInfoModel], Never>([])
     private var cancellables = Set<AnyCancellable>()
+    private var lastSeenAt: [UUID: Date] = [:]
+
+    private static let ttl: TimeInterval = 1
+    private static let evictionInterval: TimeInterval = 1
 
     init() {
         self.peripheralHandler = PeripheralManagerDelegateHandler(bluetoothManager: manager)
@@ -30,7 +33,10 @@ final class BluetoothService {
         setupPeripheral()
         observeDiscovery()
         observeConnectionEvents()
+        startEvictionTimer()
+        observeAppLifecycle()
     }
+
 
     private func setupPeripheral() {
         manager.setupPeripheralManager(delegate: peripheralHandler)
@@ -60,6 +66,8 @@ final class BluetoothService {
                     )
                 else { return }
 
+                self.lastSeenAt[peripheral.identifier] = Date()
+
                 var current = self.devicesSubject.value
                 if let index = current.firstIndex(where: { $0.peripheral.identifier == peripheral.identifier }) {
                     current[index] = cell
@@ -70,6 +78,55 @@ final class BluetoothService {
             }
             .store(in: &cancellables)
     }
+
+    private func startEvictionTimer() {
+        Timer.publish(every: Self.evictionInterval, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] _ in
+                self?.evictStaledDevices()
+            }
+            .store(in: &cancellables)
+    }
+
+    private func observeAppLifecycle() {
+        NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)
+            .sink { [weak self] _ in
+                self?.manager.stopAdvertising()
+                self?.manager.stopScan()
+            }
+            .store(in: &cancellables)
+
+        NotificationCenter.default.publisher(for: UIApplication.willEnterForegroundNotification)
+            .sink { [weak self] _ in
+                guard let self else { return }
+                self.manager.startAdvertising()
+                self.manager.stopScan()
+                self.devicesSubject.send([])
+                self.lastSeenAt.removeAll()
+                self.manager.startScan(
+                    serviceUUIDs: [BluetoothManager.dataSharingServiceUUID],
+                    options: [CBCentralManagerScanOptionAllowDuplicatesKey: true]
+                )
+            }
+            .store(in: &cancellables)
+    }
+
+    private func evictStaledDevices() {
+        let now = Date()
+        let staleIDs = lastSeenAt
+            .filter { now.timeIntervalSince($0.value) > Self.ttl }
+            .map(\.key)
+
+        guard !staleIDs.isEmpty else { return }
+
+        staleIDs.forEach { lastSeenAt.removeValue(forKey: $0) }
+
+        let updated = devicesSubject.value
+            .filter { !staleIDs.contains($0.peripheral.identifier) }
+
+        devicesSubject.send(updated)
+    }
+
 
     private func observeConnectionEvents() {
         manager.connectedPublisher
@@ -97,6 +154,7 @@ final class BluetoothService {
 
     func startScanning() {
         devicesSubject.send([])
+        lastSeenAt.removeAll()
         manager.startScan(
             serviceUUIDs: [BluetoothManager.dataSharingServiceUUID],
             options: [CBCentralManagerScanOptionAllowDuplicatesKey: true]
