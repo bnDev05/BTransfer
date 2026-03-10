@@ -37,7 +37,7 @@ struct CardView: View {
         .frame(height: 160)
         .background(
             LinearGradient(
-                colors: label == "From"
+                colors: label == Loc.Universal.from
                     ? [Color.accentColor, Color.accentColor.opacity(0.7)]
                     : [Color(.systemGray2), Color(.systemGray3)],
                 startPoint: .topLeading,

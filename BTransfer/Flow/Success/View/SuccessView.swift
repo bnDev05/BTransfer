@@ -103,7 +103,7 @@ struct SuccessView: View {
 
     private var doneButton: some View {
         Button { vm.done() } label: {
-            Text("Done")
+            Text(Loc.Universal.done)
                 .font(.headline)
                 .foregroundStyle(.white)
                 .frame(maxWidth: .infinity)

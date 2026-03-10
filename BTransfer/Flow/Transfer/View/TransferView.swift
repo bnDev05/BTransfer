@@ -34,7 +34,7 @@ struct TransferView: View {
         }
         .navigationBarBackButtonHidden()
         .scrollDismissesKeyboard(.interactively)
-        .navigationTitle("Transfer")
+        .navigationTitle(Loc.TransferTexts.title)
         .navigationBarTitleDisplayMode(.inline)
         .background(Color(.systemGroupedBackground))
         .onTapGesture { amountFocused = false }
@@ -57,13 +57,13 @@ struct TransferView: View {
     private var cardsSection: some View {
         VStack {
             CardView(
-                label: "From",
+                label: Loc.Universal.from,
                 name: vm.senderName,
                 maskedCard: vm.senderMaskedCard
             )
 
             CardView(
-                label: "To",
+                label: Loc.Universal.to,
                 name: vm.receiverName,
                 maskedCard: vm.receiverMaskedCard
             )
@@ -73,7 +73,7 @@ struct TransferView: View {
 
     private var amountSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Amount")
+            Text(Loc.TransferTexts.amount)
                 .font(.footnote)
                 .foregroundStyle(.secondary)
                 .padding(.leading, 4)
@@ -99,7 +99,7 @@ struct TransferView: View {
         Button {
             vm.transfer()
         } label: {
-            Text("Transfer")
+            Text(Loc.TransferTexts.title)
                 .font(.headline)
                 .foregroundStyle(.white)
                 .frame(maxWidth: .infinity)

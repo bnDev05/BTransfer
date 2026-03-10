@@ -10,6 +10,9 @@
 "Universal.text.retry" = "Retry";
 "Universal.text.cancel" = "Cancel";
 "Universal.text.you" = "You";
+"Universal.text.done" = "Done";
+"Universal.text.from" = "From";
+"Universal.text.to" = "To";
 
 // MARK: SplashTexts
 "SplashTexts.text.title" = "Payment Finder";
@@ -22,3 +25,23 @@
 "BFinderTexts.text.nearbyDevices" = "Nearby Users";
 "BFinderTexts.text.lookingForNearbyDevices" = "Looking for nearby devices…";
 "BFinderTexts.text.info" = "Make sure the other person has the app open and Bluetooth enabled. Devices appear automatically.";
+
+// MARK: BluetoothPermissionTexts
+"BluetoothPermissionTexts.text.accessRequired" = "Bluetooth Access Required";
+"BluetoothPermissionTexts.text.powerOff" = "Bluetooth is Off";
+"BluetoothPermissionTexts.text.bluetoothUnavailable" = "Bluetooth Unavailable";
+
+"BluetoothPermissionTexts.text.unauthorizedMessage" = "Please allow Bluetooth access in Settings so you can find nearby devices.";
+"BluetoothPermissionTexts.text.poweredOffMessage" = "Turn on Bluetooth in Control Center or Settings to find nearby devices.";
+"BluetoothPermissionTexts.text.notAvailableMessage" = "Bluetooth is not available on this device.";
+
+"BluetoothPermissionTexts.text.openSettings" = "Open Settings";
+"BluetoothPermissionTexts.text.openControlCenter" = "Open Control Center";
+
+// MARK: CardPickerSheetTexts
+"CardPickerSheetTexts.text.selectToBroadcast" = "Select Card to Broadcast";
+"DeviceDetailTexts.text.details" = "Device";
+
+// MARK: TransferTexts
+"TransferTexts.text.title" = "Transfer";
+"TransferTexts.text.amount" = "Amount";

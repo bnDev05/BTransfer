@@ -13,25 +13,25 @@ struct BluetoothPermissionView: View {
 
     private var title: String {
         switch state {
-        case .unauthorized: return "Bluetooth Access Required"
-        case .poweredOff:   return "Bluetooth is Off"
-        default:            return "Bluetooth Unavailable"
+        case .unauthorized: return Loc.BluetoothPermissionTexts.accessRequired
+        case .poweredOff:   return Loc.BluetoothPermissionTexts.powerOff
+        default:            return Loc.BluetoothPermissionTexts.bluetoothUnavailable
         }
     }
 
     private var message: String {
         switch state {
         case .unauthorized:
-            return "Please allow Bluetooth access in Settings so you can find nearby devices."
+            return Loc.BluetoothPermissionTexts.unauthorizedMessage
         case .poweredOff:
-            return "Turn on Bluetooth in Control Center or Settings to find nearby devices."
+            return Loc.BluetoothPermissionTexts.poweredOffMessage
         default:
-            return "Bluetooth is not available on this device."
+            return Loc.BluetoothPermissionTexts.notAvailableMessage
         }
     }
 
     private var actionLabel: String {
-        state == .unauthorized ? "Open Settings" : "Open Control Center"
+        state == .unauthorized ? Loc.BluetoothPermissionTexts.openSettings : Loc.BluetoothPermissionTexts.openControlCenter
     }
 
     var body: some View {

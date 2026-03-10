@@ -15,7 +15,7 @@ struct CardPickerSheet: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text("Select Card to Broadcast")
+            Text(Loc.CardPickerSheetTexts.selectToBroadcast)
                 .font(.headline)
                 .padding(.horizontal, 20)
                 .padding(.top, 24)

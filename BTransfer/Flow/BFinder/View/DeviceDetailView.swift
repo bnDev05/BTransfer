@@ -22,7 +22,7 @@ struct DeviceDetailView: View {
             Text("•••• \(device.lastFourCardNumber)")
                 .foregroundStyle(.secondary)
         }
-        .navigationTitle("Device")
+        .navigationTitle(Loc.DeviceDetailTexts.details)
         .navigationBarTitleDisplayMode(.inline)
     }
 }
