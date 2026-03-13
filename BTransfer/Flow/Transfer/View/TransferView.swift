@@ -50,6 +50,7 @@ struct TransferView: View {
             vm.coordinator.pop()
         } label: {
             Image(systemName: "chevron.left")
+                .padding()
         }
 
     }

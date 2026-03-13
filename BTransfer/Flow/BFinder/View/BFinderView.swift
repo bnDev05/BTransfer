@@ -83,51 +83,33 @@ struct BFinderView: View {
 
     private var devicesSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text(Loc.BFinderTexts.nearbyDevices)
-                .font(.footnote)
-                .foregroundStyle(.secondary)
-                .padding(.leading, 4)
+            if !vm.discoveredDevices.isEmpty {
+                Text(Loc.BFinderTexts.nearbyDevices)
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                    .padding(.leading, 4)
+            }
 
-            if vm.discoveredDevices.isEmpty {
-                if vm.scanPhase != .noResults {
-                    discoveringPlaceholder
-                }
-            } else {
-                VStack(spacing: 0) {
-                    ForEach(vm.discoveredDevices) { cell in
-                        Button {
-                            vm.goToTransfer(cell: cell)
-                        } label: {
-                            DiscoveredDeviceCell(
-                                cell: cell,
-                                isLoading: vm.loadingPeripheralID == cell.peripheral.identifier
-                            )
-                        }
-                        .buttonStyle(.plain)
+            VStack(spacing: 0) {
+                ForEach(vm.discoveredDevices) { cell in
+                    Button {
+                        vm.goToTransfer(cell: cell)
+                    } label: {
+                        DiscoveredDeviceCell(
+                            cell: cell,
+                            isLoading: vm.loadingPeripheralID == cell.peripheral.identifier
+                        )
+                    }
+                    .buttonStyle(.plain)
 
-                        if cell.id != vm.discoveredDevices.last?.id {
-                            Divider().padding(.leading, 60)
-                        }
+                    if cell.id != vm.discoveredDevices.last?.id {
+                        Divider().padding(.leading, 60)
                     }
                 }
-                .background(Color(.secondarySystemGroupedBackground))
-                .clipShape(RoundedRectangle(cornerRadius: 12))
             }
+            .background(Color(.secondarySystemGroupedBackground))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
         }
-    }
-
-    private var discoveringPlaceholder: some View {
-        HStack(spacing: 12) {
-            ProgressView()
-                .tint(.secondary)
-            Text(Loc.BFinderTexts.lookingForNearbyDevices)
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(16)
-        .background(Color(.secondarySystemGroupedBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 
     private var scannerFooter: some View {
